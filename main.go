@@ -10,8 +10,10 @@ import (
 	"radimsuckr/rumgo/rules"
 )
 
-const ERROR_LOADING_CONFIG = 123
-const ERROR_CREATING_WATCHLIST = 124
+const (
+	ERROR_LOADING_CONFIG     = 123
+	ERROR_CREATING_WATCHLIST = 124
+)
 
 func Scrape(item rules.WatchlistItem) {
 	_, err := client.SendRequest(item.URL)
