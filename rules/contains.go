@@ -8,6 +8,6 @@ func (ContainsRule) Evaluate() bool {
 	return true
 }
 
-func (ContainsRule) GetType() string {
-	return "contains"
+func (ContainsRule) GetType() RuleType {
+	return CONTAINS_RULE_TYPE
 }

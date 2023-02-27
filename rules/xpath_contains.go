@@ -9,6 +9,6 @@ func (XPathContains) Evaluate() bool {
 	return true
 }
 
-func (XPathContains) GetType() string {
-	return "xpath-contains"
+func (XPathContains) GetType() RuleType {
+	return XPATH_CONTAINS_RULE_TYPE
 }
