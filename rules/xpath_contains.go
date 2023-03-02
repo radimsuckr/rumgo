@@ -5,7 +5,7 @@ type XPathContains struct {
 	Value string
 }
 
-func (XPathContains) Evaluate() bool {
+func (XPathContains) Evaluate(content *string) bool {
 	return true
 }
 

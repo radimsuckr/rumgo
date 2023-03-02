@@ -1,11 +1,13 @@
 package rules
 
+import "strings"
+
 type ContainsRule struct {
 	Value string
 }
 
-func (ContainsRule) Evaluate() bool {
-	return true
+func (rule ContainsRule) Evaluate(content *string) bool {
+	return strings.Contains(*content, rule.Value)
 }
 
 func (ContainsRule) GetType() RuleType {

@@ -16,13 +16,13 @@ const (
 )
 
 func Scrape(item rules.WatchlistItem) {
-	_, err := client.SendRequest(item.URL)
+	resp, err := client.SendRequest(item.URL)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for _, rule := range item.Rules {
-		fmt.Printf("%s (%s): %t\n", item.URL, rule.GetType(), rule.Evaluate())
+		fmt.Printf("%s (%s): %t\n", item.URL, rule.GetType(), rule.Evaluate(&resp.Content))
 	}
 }
 
