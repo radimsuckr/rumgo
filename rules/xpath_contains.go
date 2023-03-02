@@ -11,15 +11,15 @@ type XPathContains struct {
 	Value string
 }
 
-func (rule XPathContains) Evaluate(content *string) bool {
+func (rule XPathContains) Evaluate(content *string) (*bool, error) {
 	doc, doc_err := htmlquery.Parse(strings.NewReader(*content))
 	if doc_err != nil {
-		// TODO: handle errors
+		return nil, doc_err
 	}
 
 	elements, elements_error := htmlquery.QueryAll(doc, rule.Path)
 	if elements_error != nil {
-		// TODO: handle errors
+		return nil, elements_error
 	}
 
 	contains := false
@@ -29,7 +29,7 @@ func (rule XPathContains) Evaluate(content *string) bool {
 		}
 	}
 
-	return contains
+	return &contains, nil
 }
 
 func (XPathContains) GetType() RuleType {

@@ -6,8 +6,9 @@ type ContainsRule struct {
 	Value string
 }
 
-func (rule ContainsRule) Evaluate(content *string) bool {
-	return strings.Contains(*content, rule.Value)
+func (rule ContainsRule) Evaluate(content *string) (*bool, error) {
+	result := strings.Contains(*content, rule.Value)
+	return &result, nil
 }
 
 func (ContainsRule) GetType() RuleType {

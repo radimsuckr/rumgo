@@ -8,6 +8,6 @@ const (
 )
 
 type Rule interface {
-	Evaluate(content *string) bool
+	Evaluate(content *string) (*bool, error)
 	GetType() RuleType
 }
