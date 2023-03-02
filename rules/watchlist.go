@@ -26,7 +26,7 @@ func NewWatchlistFromConfig(config *config.Config) (*Watchlist, error) {
 			case CONTAINS_RULE_TYPE:
 				wli.Rules = append(wli.Rules, &ContainsRule{Value: rule.Value})
 			case XPATH_CONTAINS_RULE_TYPE:
-				wli.Rules = append(wli.Rules, &XPathContains{Value: rule.Value})
+				wli.Rules = append(wli.Rules, &XPathContains{Path: rule.Path, Value: rule.Value})
 			default:
 				return nil, errors.New("Invalid rule type")
 			}

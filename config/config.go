@@ -8,9 +8,9 @@ import (
 )
 
 type Rule struct {
-	Type    string `json:"type"`
-	Value   string `json:"value"`
-	Pattern string `json:"pattern,omitempty"`
+	Type  string `json:"type"`
+	Value string `json:"value"`
+	Path  string `json:"path,omitempty"`
 }
 
 type WatchlistItem struct {
