@@ -34,6 +34,6 @@ func main() {
 			go Scrape(item)
 		}
 
-		time.Sleep(1 * time.Second)
+		time.Sleep(cfg.LoopInterval * time.Second)
 	}
 }
