@@ -15,7 +15,6 @@ const (
 )
 
 func main() {
-	fmt.Println("rumgo starting...")
 
 	cfg, cfg_err := config.LoadConfig("./config.json") // TODO: get config path from a env var
 	if cfg_err != nil {
