@@ -11,6 +11,13 @@ type XPathContains struct {
 	Value string
 }
 
+func NewXPathContainsRule(path string, value string) *XPathContains {
+	return &XPathContains{
+		Path:  path,
+		Value: value,
+	}
+}
+
 func (rule XPathContains) Evaluate(content *string) (*bool, error) {
 	doc, doc_err := htmlquery.Parse(strings.NewReader(*content))
 	if doc_err != nil {
