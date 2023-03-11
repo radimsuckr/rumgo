@@ -40,5 +40,5 @@ func (rule XPathContains) Evaluate(content *string) (*bool, error) {
 }
 
 func (XPathContains) GetType() RuleType {
-	return XPATH_CONTAINS_RULE_TYPE
+	return RuleTypeXPathContains
 }

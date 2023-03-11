@@ -18,5 +18,5 @@ func (rule ContainsRule) Evaluate(content *string) (*bool, error) {
 }
 
 func (ContainsRule) GetType() RuleType {
-	return CONTAINS_RULE_TYPE
+	return RuleTypeContains
 }
