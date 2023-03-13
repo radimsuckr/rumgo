@@ -22,7 +22,7 @@ type WatchlistItem struct {
 }
 
 type Config struct {
-	Vesion       string          `json:"vesion"`
+	Version      string          `json:"version"`
 	Watchlist    []WatchlistItem `json:"watchlist"`
 	LoopInterval time.Duration   `json:"loopInterval,omitempty"`
 }
@@ -41,7 +41,7 @@ func LoadConfig(path string) (*Config, error) {
 
 	config := &Config{LoopInterval: DEFAULT_LOOP_INTERVAL}
 	json.Unmarshal(content, &config)
-	if config.Vesion != "0.1.0" {
+	if config.Version != "0.1.0" {
 		return nil, errors.New("config uses unsupported version")
 	}
 
