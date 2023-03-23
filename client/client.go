@@ -3,6 +3,8 @@ package client
 import (
 	"io"
 	"net/http"
+
+	"github.com/EDDYCJY/fake-useragent"
 )
 
 type PageResponse struct {
@@ -15,7 +17,13 @@ func NewPageResponse(content string) *PageResponse {
 
 func SendRequest(url string) (*PageResponse, error) {
 	client := http.Client(*http.DefaultClient)
-	resp, req_err := client.Get(url)
+	req, req_err := http.NewRequest("GET", url, nil)
+	if req_err != nil {
+		return nil, req_err
+	}
+	req.Header.Add("User-Agent", browser.Computer())
+
+	resp, req_err := client.Do(req)
 	if req_err != nil {
 		return nil, req_err
 	}
