@@ -17,21 +17,21 @@ func NewPageResponse(content string) *PageResponse {
 
 func SendRequest(url string) (*PageResponse, error) {
 	client := http.Client(*http.DefaultClient)
-	req, req_err := http.NewRequest("GET", url, nil)
-	if req_err != nil {
-		return nil, req_err
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
 	}
 	req.Header.Add("User-Agent", browser.Computer())
 
-	resp, req_err := client.Do(req)
-	if req_err != nil {
-		return nil, req_err
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
 	}
 	defer resp.Body.Close()
 
-	body, body_err := io.ReadAll(resp.Body)
-	if body_err != nil {
-		return nil, body_err
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
 	}
 
 	return NewPageResponse(string(body)), nil

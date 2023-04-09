@@ -22,15 +22,15 @@ func main() {
 		os.Exit(ErrorReadingRumgoConfig)
 	}
 
-	cfg, cfg_err := config.LoadConfig(cfg_path)
-	if cfg_err != nil {
-		fmt.Println(cfg_err)
+	cfg, err := config.LoadConfig(cfg_path)
+	if err != nil {
+		fmt.Println(err)
 		os.Exit(ErrorLoadingConfig)
 	}
 
-	watchlist, watchlist_error := rules.NewWatchlistFromConfig(cfg)
-	if watchlist_error != nil {
-		fmt.Println(watchlist_error)
+	watchlist, err := rules.NewWatchlistFromConfig(cfg)
+	if err != nil {
+		fmt.Println(err)
 		os.Exit(ErrorCreatingWatchlist)
 	}
 

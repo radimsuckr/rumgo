@@ -28,15 +28,15 @@ type Config struct {
 }
 
 func LoadConfig(path string) (*Config, error) {
-	file, file_err := os.Open(path)
-	if file_err != nil {
-		return nil, file_err
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
 	}
 
-	content, content_err := io.ReadAll(file)
+	content, err := io.ReadAll(file)
 	file.Close()
-	if content_err != nil {
-		return nil, content_err
+	if err != nil {
+		return nil, err
 	}
 
 	config := &Config{LoopInterval: DEFAULT_LOOP_INTERVAL}

@@ -19,14 +19,14 @@ func NewXPathContainsRule(path string, value string) *XPathContains {
 }
 
 func (rule XPathContains) Evaluate(content *string) (*bool, error) {
-	doc, doc_err := htmlquery.Parse(strings.NewReader(*content))
-	if doc_err != nil {
-		return nil, doc_err
+	doc, err := htmlquery.Parse(strings.NewReader(*content))
+	if err != nil {
+		return nil, err
 	}
 
-	elements, elements_error := htmlquery.QueryAll(doc, rule.Path)
-	if elements_error != nil {
-		return nil, elements_error
+	elements, err := htmlquery.QueryAll(doc, rule.Path)
+	if err != nil {
+		return nil, err
 	}
 
 	contains := false

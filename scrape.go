@@ -8,8 +8,8 @@ import (
 )
 
 func Scrape(item rules.WatchlistItem) {
-	resp, resp_err := client.SendRequest(item.URL)
-	if resp_err != nil {
+	resp, err := client.SendRequest(item.URL)
+	if err != nil {
 		fmt.Printf("Failed sending request to: %s\n", item.URL)
 	} else {
 		for _, rule := range item.Rules {
