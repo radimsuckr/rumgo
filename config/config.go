@@ -27,23 +27,25 @@ type Config struct {
 	LoopInterval time.Duration   `json:"loopInterval,omitempty"`
 }
 
-func LoadConfig(path string) (*Config, error) {
+func ReadConfigFile(path string) (content []byte, err error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
+	defer file.Close()
 
-	content, err := io.ReadAll(file)
-	file.Close()
+	content, err = io.ReadAll(file)
 	if err != nil {
 		return nil, err
 	}
+	return content, nil
+}
 
-	config := &Config{LoopInterval: DEFAULT_LOOP_INTERVAL}
+func NewConfig(content []byte) (config *Config, err error) {
+	config = &Config{LoopInterval: DEFAULT_LOOP_INTERVAL}
 	json.Unmarshal(content, &config)
 	if config.Version != "0.1.0" {
 		return nil, errors.New("config uses unsupported version")
 	}
-
 	return config, nil
 }
