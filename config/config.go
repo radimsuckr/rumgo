@@ -43,7 +43,9 @@ func ReadConfigFile(path string) (content []byte, err error) {
 
 func NewConfig(content []byte) (config *Config, err error) {
 	config = &Config{LoopInterval: DEFAULT_LOOP_INTERVAL}
-	json.Unmarshal(content, &config)
+	if json.Unmarshal(content, &config) != nil {
+		return nil, errors.New("file does not contain valid JSON")
+	}
 	if config.Version != "0.1.0" {
 		return nil, errors.New("config uses unsupported version")
 	}
