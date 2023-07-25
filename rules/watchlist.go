@@ -15,6 +15,8 @@ type Watchlist struct {
 	Items []WatchlistItem
 }
 
+const InvalidRuleTypeError = "invalid rule type"
+
 func NewWatchlistFromConfig(config *config.Config) (*Watchlist, error) {
 	wl := &Watchlist{}
 
@@ -28,7 +30,7 @@ func NewWatchlistFromConfig(config *config.Config) (*Watchlist, error) {
 			case RuleTypeXPathContains:
 				wli.Rules = append(wli.Rules, NewXPathContainsRule(rule.Path, rule.Value))
 			default:
-				return nil, errors.New("invalid rule type")
+				return nil, errors.New(InvalidRuleTypeError)
 			}
 		}
 
