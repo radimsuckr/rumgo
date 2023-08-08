@@ -53,7 +53,9 @@ func TestReadConfigFileWithValidPathShouldPass(t *testing.T) {
 	defer os.Remove(file.Name())
 
 	expected_str := "hello world"
-	file.WriteString(expected_str)
+	if _, err := file.WriteString(expected_str); err != nil {
+		t.Fatal("failed to prepare test file")
+	}
 	file.Close()
 
 	path := file.Name()

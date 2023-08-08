@@ -25,7 +25,7 @@ func GetConfigPath() (cfg_path string) {
 	return cfg_path
 }
 
-func CreateWatchlist(cfg *config.Config) (watchlist *rules.Watchlist) {
+func CreateWatchlist(cfg config.Config) (watchlist rules.Watchlist) {
 	watchlist, err := rules.NewWatchlistFromConfig(cfg)
 	if err != nil {
 		fmt.Println(err)

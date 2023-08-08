@@ -20,8 +20,8 @@ func TestContainsEvaluateContainsText(t *testing.T) {
 	got, _ := rule.Evaluate(&text)
 	want := true
 
-	if *got != true {
-		t.Errorf("got %t, wanted %t", *got, want)
+	if got != true {
+		t.Errorf("got %t, wanted %t", got, want)
 	}
 }
 
@@ -32,7 +32,7 @@ func TestContainsEvaluateDoesNotContainText(t *testing.T) {
 	got, _ := rule.Evaluate(&text)
 	want := true
 
-	if *got != false {
-		t.Errorf("got %t, wanted %t", *got, want)
+	if got != false {
+		t.Errorf("got %t, wanted %t", got, want)
 	}
 }

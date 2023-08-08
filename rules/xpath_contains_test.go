@@ -30,8 +30,8 @@ func TestXPathContainsEvaluateContainsText(t *testing.T) {
 		t.Fatal("unexpected error")
 	}
 
-	if *got != want {
-		t.Errorf("got %t, wanted %t", *got, want)
+	if got != want {
+		t.Errorf("got %t, wanted %t", got, want)
 	}
 }
 
@@ -49,8 +49,8 @@ func TestXPathContainsEvaluateDoesNotContainText(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if *got != want {
-		t.Errorf("got %t, wanted %t", *got, want)
+	if got != want {
+		t.Errorf("got %t, wanted %t", got, want)
 	}
 }
 
@@ -68,7 +68,7 @@ func TestXPathContainsEvaluateDoesNotContainTextWithWrongXPath(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if *got != want {
-		t.Errorf("got %t, wanted %t", *got, want)
+	if got != want {
+		t.Errorf("got %t, wanted %t", got, want)
 	}
 }

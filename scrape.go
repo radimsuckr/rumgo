@@ -18,7 +18,7 @@ func Scrape(item rules.WatchlistItem) {
 				fmt.Printf("Rule error: %s\n", rule_err)
 				continue
 			}
-			fmt.Printf("%s (%s): %t\n", item.URL, rule.GetType(), *result)
+			fmt.Printf("%s (%s): %t\n", item.URL, rule.GetType(), result)
 		}
 	}
 }
