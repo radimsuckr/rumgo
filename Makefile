@@ -1,3 +1,4 @@
+bin_dir = bin/
 test_coverage_file = test_coverage.out
 
 build:
@@ -9,7 +10,8 @@ run-build: build
 br: run-build
 
 clean:
-	rm -rf bin/
+	rm -rf $(bin_dir)
+	rm -f $(test_coverage_file)
 
 test:
 	go test -coverprofile=$(test_coverage_file) ./...
