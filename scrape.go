@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 
 	"radimsuckr/rumgo/client"
@@ -12,24 +12,24 @@ import (
 func sendTelegramMessage(telegram config.Telegram, text string) {
 	resp, err := http.Get("https://api.telegram.org/bot" + telegram.Token + "/sendMessage?chat_id=" + telegram.Channel + "&text=" + text)
 	if err != nil {
-		fmt.Printf("Failed sending Telegram message: %s\n", err)
+		log.Printf("Failed sending Telegram message: %s\n", err)
 	}
 	if resp.StatusCode != 200 {
-		fmt.Printf("Failed sending Telegram message, status code = %d\n", resp.StatusCode)
+		log.Printf("Failed sending Telegram message, status code = %d\n", resp.StatusCode)
 	}
 	defer resp.Body.Close()
-	fmt.Println(resp.StatusCode)
+	log.Println(resp.StatusCode)
 }
 
 func Scrape(telegram config.Telegram, item rules.WatchlistItem) {
 	resp, err := client.SendRequest(item.URL)
 	if err != nil {
-		fmt.Printf("Failed sending request to: %s\n", item.URL)
+		log.Printf("Failed sending request to: %s\n", item.URL)
 	} else {
 		for _, rule := range item.Rules {
 			result, rule_err := rule.Evaluate(&resp.Content)
 			if rule_err != nil {
-				fmt.Printf("Rule error: %s\n", rule_err)
+				log.Printf("Rule error: %s\n", rule_err)
 				continue
 			}
 
@@ -38,7 +38,7 @@ func Scrape(telegram config.Telegram, item rules.WatchlistItem) {
 				sendTelegramMessage(telegram, text)
 			}
 
-			fmt.Printf("%s (%s): %t\n", item.URL, rule.GetType(), result)
+			log.Printf("%s (%s): %t\n", item.URL, rule.GetType(), result)
 		}
 	}
 }

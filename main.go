@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -19,7 +19,7 @@ const (
 func GetConfigPath() (cfg_path string) {
 	cfg_path = os.Getenv("RUMGO_CONFIG")
 	if len(cfg_path) < 1 {
-		fmt.Println("set path to config file in \"RUMGO_CONFIG\" env var")
+		log.Println("set path to config file in \"RUMGO_CONFIG\" env var")
 		os.Exit(ErrorReadingRumgoConfig)
 	}
 	return cfg_path
@@ -28,7 +28,7 @@ func GetConfigPath() (cfg_path string) {
 func CreateWatchlist(cfg config.Config) (watchlist rules.Watchlist) {
 	watchlist, err := rules.NewWatchlistFromConfig(cfg)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		os.Exit(ErrorCreatingWatchlist)
 	}
 	return watchlist
@@ -38,12 +38,12 @@ func main() {
 	cfg_path := GetConfigPath()
 	cfg_content, err := config.ReadConfigFile(cfg_path)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		os.Exit(ErrorReadingConfigFile)
 	}
 	cfg, err := config.NewConfig(cfg_content)
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		os.Exit(ErrorLoadingConfig)
 	}
 	watchlist := CreateWatchlist(cfg)
