@@ -4,6 +4,9 @@ test_coverage_file = test_coverage.out
 build:
 	CGO_ENABLED=0 go build -o bin/rumgo
 
+build-docker: Dockerfile
+	docker build -t radimsuckr/rumgo:latest .
+
 run-build: build
 	bin/rumgo
 
