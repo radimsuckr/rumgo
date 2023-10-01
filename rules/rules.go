@@ -4,6 +4,7 @@ type RuleType string
 
 const (
 	RuleTypeContains      = "contains"
+	RuleTypeNotContains   = "not-contains"
 	RuleTypeXPathContains = "xpath-contains"
 )
 

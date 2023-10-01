@@ -7,11 +7,14 @@ import (
 )
 
 const (
-	validConfigString   = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"},{\"type\":\"xpath-contains\",\"path\":\"//p\",\"value\":\"cloud\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
+	validConfigString   = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"},{\"type\":\"xpath-contains\",\"path\":\"//p\",\"value\":\"cloud\"},{\"type\":\"not-contains\",\"value\":\"Sückr\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
 	invalidConfigString = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"abc-xyz-123\",\"path\":\"//p\",\"value\":\"cloud\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
 )
 
 func TestNewWatchlistFromCompletelyValidConfigShouldPass(t *testing.T) {
+	const expectedItems = 2
+	const expectedRules = 3
+
 	config, err := config.NewConfig([]byte(validConfigString))
 	if err != nil {
 		t.Fatal(err)
@@ -22,12 +25,16 @@ func TestNewWatchlistFromCompletelyValidConfigShouldPass(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if len(wl.Items) != 2 {
-		t.Fatal("watchlist should contain 2 items")
+	if l := len(wl.Items); l != expectedItems {
+		t.Fatalf("watchlist should contain %d items, it has %d", expectedItems, l)
 	}
 
 	if wl.Items[0].URL != "https://radimsuckr.cz" {
 		t.Fatal("url from config does not match watchlist")
+	}
+
+	if l := len(wl.Items[0].Rules); l != expectedRules {
+		t.Fatalf("first item should have %d rules, it has %d", expectedRules, l)
 	}
 
 	if wl.Items[0].Rules[0].GetType() != RuleTypeContains {
@@ -35,7 +42,11 @@ func TestNewWatchlistFromCompletelyValidConfigShouldPass(t *testing.T) {
 	}
 
 	if wl.Items[0].Rules[1].GetType() != RuleTypeXPathContains {
-		t.Fatalf("first rule shoud be of type %s", RuleTypeXPathContains)
+		t.Fatalf("second rule shoud be of type %s", RuleTypeXPathContains)
+	}
+
+	if wl.Items[0].Rules[2].GetType() != RuleTypeNotContains {
+		t.Fatalf("third rule shoud be of type %s", RuleTypeNotContains)
 	}
 }
 

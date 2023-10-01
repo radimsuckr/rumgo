@@ -10,6 +10,14 @@ func TestRuleTypeContainsHasExpectedValue(t *testing.T) {
 	}
 }
 
+func TestRuleTypeNotContainsHasExpectedValue(t *testing.T) {
+	expected := "not-contains"
+
+	if RuleTypeNotContains != expected {
+		t.Errorf("RuleTypeNotContains has value %s instead of %s", RuleTypeNotContains, expected)
+	}
+}
+
 func TestRuleTypeXPathContainsHasExpectedValue(t *testing.T) {
 	expected := "xpath-contains"
 
