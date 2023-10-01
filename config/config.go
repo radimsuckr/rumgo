@@ -16,6 +16,11 @@ type Rule struct {
 	Path  string `json:"path,omitempty"`
 }
 
+type Telegram struct {
+	Channel string `json:"channel"`
+	Token   string `json:"token"`
+}
+
 type WatchlistItem struct {
 	URL   string `json:"url"`
 	Rules []Rule `json:"rules"`
@@ -23,6 +28,7 @@ type WatchlistItem struct {
 
 type Config struct {
 	Version      string          `json:"version"`
+	Telegram     Telegram        `json:"telegram"`
 	Watchlist    []WatchlistItem `json:"watchlist"`
 	LoopInterval time.Duration   `json:"loopInterval,omitempty"`
 }

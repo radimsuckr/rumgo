@@ -50,7 +50,7 @@ func main() {
 
 	for {
 		for _, item := range watchlist.Items {
-			go Scrape(item)
+			go Scrape(cfg.Telegram, item)
 		}
 
 		time.Sleep(cfg.LoopInterval * time.Second)
