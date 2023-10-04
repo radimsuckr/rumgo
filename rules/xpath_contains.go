@@ -33,6 +33,7 @@ func (rule XPathContains) Evaluate(content *string) (bool, error) {
 	for _, el := range elements {
 		if strings.Contains(htmlquery.InnerText(el), rule.Value) {
 			contains = true
+			return contains, nil
 		}
 	}
 
