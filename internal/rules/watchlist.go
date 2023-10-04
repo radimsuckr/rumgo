@@ -3,7 +3,7 @@ package rules
 import (
 	"errors"
 
-	"rumgo/config"
+	"rumgo/internal/config"
 )
 
 type WatchlistItem struct {

@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	"rumgo/client"
-	"rumgo/config"
-	"rumgo/rules"
+	"rumgo/internal/client"
+	"rumgo/internal/config"
+	"rumgo/internal/rules"
 )
 
 func sendTelegramMessage(telegram config.Telegram, text string) {

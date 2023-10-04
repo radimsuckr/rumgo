@@ -61,7 +61,7 @@ func TestNewWatchlistFromConfigWithInvalidRuleTypeShouldFail(t *testing.T) {
 		t.Fatal("creating a watchlist from a config with invalid rule should return an error")
 	}
 
-	if err.Error() != InvalidRuleTypeError {
+	if err.Error() != invalidRuleTypeError {
 		t.Fatal("invalid error returned")
 	}
 }
