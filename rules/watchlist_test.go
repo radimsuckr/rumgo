@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	validConfigString   = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"},{\"type\":\"xpath-contains\",\"path\":\"//p\",\"value\":\"cloud\"},{\"type\":\"not-contains\",\"value\":\"Sückr\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
+	validConfigString   = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"},{\"type\":\"xpath-contains\",\"path\":\"//p\",\"value\":\"cloud\"},{\"type\":\"contains\",\"invert\":true,\"value\":\"Sückr\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
 	invalidConfigString = "{\"version\":\"0.1.0\",\"loopInterval\": 10,\"watchlist\":[{\"url\":\"https://radimsuckr.cz\",\"rules\":[{\"type\":\"abc-xyz-123\",\"path\":\"//p\",\"value\":\"cloud\"}]},{\"url\":\"http://localhost:8000\",\"rules\":[{\"type\":\"contains\",\"value\":\"Sückr\"}]}]}"
 )
 
@@ -45,8 +45,8 @@ func TestNewWatchlistFromCompletelyValidConfigShouldPass(t *testing.T) {
 		t.Fatalf("second rule shoud be of type %s", RuleTypeXPathContains)
 	}
 
-	if wl.Items[0].Rules[2].GetType() != RuleTypeNotContains {
-		t.Fatalf("third rule shoud be of type %s", RuleTypeNotContains)
+	if wl.Items[0].Rules[2].GetType() != GetNotType(RuleTypeContains) {
+		t.Fatalf("third rule shoud be of type %s", GetNotType(RuleTypeContains))
 	}
 }
 

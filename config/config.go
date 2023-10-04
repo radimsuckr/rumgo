@@ -11,9 +11,10 @@ import (
 const DEFAULT_LOOP_INTERVAL = 60
 
 type Rule struct {
-	Type  string `json:"type"`
-	Value string `json:"value"`
-	Path  string `json:"path,omitempty"`
+	Type   string `json:"type"`
+	Invert bool   `json:"invert"`
+	Value  string `json:"value"`
+	Path   string `json:"path,omitempty"`
 }
 
 type Telegram struct {

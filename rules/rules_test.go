@@ -11,10 +11,10 @@ func TestRuleTypeContainsHasExpectedValue(t *testing.T) {
 }
 
 func TestRuleTypeNotContainsHasExpectedValue(t *testing.T) {
-	expected := "not-contains"
+	var expected RuleType = "!contains"
 
-	if RuleTypeNotContains != expected {
-		t.Errorf("RuleTypeNotContains has value %s instead of %s", RuleTypeNotContains, expected)
+	if val := GetNotType(RuleTypeContains); val != expected {
+		t.Errorf("Inverted RuleTypeContains has value %s instead of %s", val, expected)
 	}
 }
 

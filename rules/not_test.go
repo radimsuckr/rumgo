@@ -3,10 +3,10 @@ package rules
 import "testing"
 
 func TestNotContainsGetTypeReturnsCorrectType(t *testing.T) {
-	rule := NewNotContainsRule("random")
+	rule := NewNot(NewContainsRule("random"))
 
 	ruletype := rule.GetType()
-	expected := RuleTypeNotContains
+	expected := GetNotType(RuleTypeContains)
 
 	if ruletype != RuleType(expected) {
 		t.Errorf("rule type should be %s but is %s", expected, ruletype)
@@ -14,7 +14,7 @@ func TestNotContainsGetTypeReturnsCorrectType(t *testing.T) {
 }
 
 func TestNotContainsEvaluateContainsText(t *testing.T) {
-	rule := NewNotContainsRule("golang")
+	rule := NewNot(NewContainsRule("golang"))
 	text := "the best language of all time is golang, that's for sure"
 
 	got, _ := rule.Evaluate(&text)
@@ -26,7 +26,7 @@ func TestNotContainsEvaluateContainsText(t *testing.T) {
 }
 
 func TestNotContainsEvaluateDoesNotContainText(t *testing.T) {
-	rule := NewNotContainsRule("golang")
+	rule := NewNot(NewContainsRule("golang"))
 	text := "the best language of all time is rust, that's for sure"
 
 	got, _ := rule.Evaluate(&text)

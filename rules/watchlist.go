@@ -17,6 +17,22 @@ type Watchlist struct {
 
 const InvalidRuleTypeError = "invalid rule type"
 
+func createRule(rule config.Rule) (Rule, error) {
+	var output Rule
+	switch rule.Type {
+	case RuleTypeContains:
+		output = NewContainsRule(rule.Value)
+	case RuleTypeXPathContains:
+		output = NewXPathContainsRule(rule.Path, rule.Value)
+	default:
+		return nil, errors.New(InvalidRuleTypeError)
+	}
+	if rule.Invert {
+		output = NewNot(output)
+	}
+	return output, nil
+}
+
 func NewWatchlistFromConfig(config config.Config) (Watchlist, error) {
 	wl := Watchlist{}
 
@@ -24,16 +40,11 @@ func NewWatchlistFromConfig(config config.Config) (Watchlist, error) {
 		wli := WatchlistItem{URL: item.URL}
 
 		for _, rule := range item.Rules {
-			switch rule.Type {
-			case RuleTypeContains:
-				wli.Rules = append(wli.Rules, NewContainsRule(rule.Value))
-			case RuleTypeNotContains:
-				wli.Rules = append(wli.Rules, NewNotContainsRule(rule.Value))
-			case RuleTypeXPathContains:
-				wli.Rules = append(wli.Rules, NewXPathContainsRule(rule.Path, rule.Value))
-			default:
-				return wl, errors.New(InvalidRuleTypeError)
+			wlRule, err := createRule(rule)
+			if err != nil {
+				return wl, err
 			}
+			wli.Rules = append(wli.Rules, wlRule)
 		}
 
 		wl.Items = append(wl.Items, wli)
