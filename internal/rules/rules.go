@@ -1,13 +1,12 @@
+// Package rules implements all available rules for response handling
 package rules
 
-type RuleType string
-
 const (
-	RuleTypeContains      = "contains"
-	RuleTypeXPathContains = "xpath-contains"
+	ruleTypeContains      string = "contains"
+	ruleTypeXPathContains string = "xpath-contains"
 )
 
-type Rule interface {
+type rule interface {
 	Evaluate(content *string) (bool, error)
-	GetType() RuleType
+	GetType() string
 }

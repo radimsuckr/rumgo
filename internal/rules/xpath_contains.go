@@ -6,19 +6,19 @@ import (
 	"github.com/antchfx/htmlquery"
 )
 
-type XPathContains struct {
+type xPathContains struct {
 	Path  string
 	Value string
 }
 
-func NewXPathContainsRule(path string, value string) *XPathContains {
-	return &XPathContains{
+func newXPathContainsRule(path string, value string) *xPathContains {
+	return &xPathContains{
 		Path:  path,
 		Value: value,
 	}
 }
 
-func (rule XPathContains) Evaluate(content *string) (bool, error) {
+func (rule xPathContains) Evaluate(content *string) (bool, error) {
 	doc, err := htmlquery.Parse(strings.NewReader(*content))
 	if err != nil {
 		return false, err
@@ -40,6 +40,6 @@ func (rule XPathContains) Evaluate(content *string) (bool, error) {
 	return contains, nil
 }
 
-func (XPathContains) GetType() RuleType {
-	return RuleTypeXPathContains
+func (xPathContains) GetType() string {
+	return ruleTypeXPathContains
 }

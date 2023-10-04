@@ -21,15 +21,15 @@ func sendTelegramMessage(telegram config.Telegram, text string) {
 	log.Println(resp.StatusCode)
 }
 
-func Scrape(telegram config.Telegram, item rules.WatchlistItem) {
+func scrape(telegram config.Telegram, item rules.WatchlistItem) {
 	resp, err := client.SendRequest(item.URL)
 	if err != nil {
 		log.Printf("Failed sending request to: %s\n", item.URL)
 	} else {
 		for _, rule := range item.Rules {
-			result, rule_err := rule.Evaluate(&resp.Content)
-			if rule_err != nil {
-				log.Printf("Rule error: %s\n", rule_err)
+			result, ruleErr := rule.Evaluate(&resp.Content)
+			if ruleErr != nil {
+				log.Printf("Rule error: %s\n", ruleErr)
 				continue
 			}
 

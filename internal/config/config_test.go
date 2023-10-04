@@ -6,9 +6,9 @@ import (
 )
 
 func TestNewConfigWithInvalidJSONShoudFail(t *testing.T) {
-	config_str := "invalid json"
+	configStr := "invalid json"
 
-	_, err := NewConfig([]byte(config_str))
+	_, err := NewConfig([]byte(configStr))
 
 	if err == nil {
 		t.Fatal("reading config with invalid JSON should fail")
@@ -16,9 +16,9 @@ func TestNewConfigWithInvalidJSONShoudFail(t *testing.T) {
 }
 
 func TestNewConfigWithValidJSONAndVersionShouldPass(t *testing.T) {
-	config_str := "{\"version\":\"0.1.0\"}"
+	configStr := "{\"version\":\"0.1.0\"}"
 
-	_, err := NewConfig([]byte(config_str))
+	_, err := NewConfig([]byte(configStr))
 
 	if err != nil {
 		t.Fatalf("reading config with valid JSON should pass, %s", err)
@@ -26,9 +26,9 @@ func TestNewConfigWithValidJSONAndVersionShouldPass(t *testing.T) {
 }
 
 func TestNewConfigWithValidJSONButInvalidVersionShouldFail(t *testing.T) {
-	config_str := "{\"version\":\"0.0.0\"}"
+	configStr := "{\"version\":\"0.0.0\"}"
 
-	_, err := NewConfig([]byte(config_str))
+	_, err := NewConfig([]byte(configStr))
 
 	if err == nil {
 		t.Fatalf("reading config with valid JSON but invalid version should fail, %s", err)
@@ -52,21 +52,21 @@ func TestReadConfigFileWithValidPathShouldPass(t *testing.T) {
 	}
 	defer os.Remove(file.Name())
 
-	expected_str := "hello world"
-	if _, err := file.WriteString(expected_str); err != nil {
+	expectedStr := "hello world"
+	if _, err := file.WriteString(expectedStr); err != nil {
 		t.Fatal("failed to prepare test file")
 	}
 	file.Close()
 
 	path := file.Name()
 
-	content_bytes, err := ReadConfigFile(path)
+	contentBytes, err := ReadConfigFile(path)
 	if err != nil {
 		t.Fatalf("reading a file from existing path %s should pass", path)
 	}
 
-	content_str := string(content_bytes)
-	if content_str != expected_str {
-		t.Fatalf("content should be \"%s\" but is \"%s\"", expected_str, content_str)
+	contentStr := string(contentBytes)
+	if contentStr != expectedStr {
+		t.Fatalf("content should be \"%s\" but is \"%s\"", expectedStr, contentStr)
 	}
 }

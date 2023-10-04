@@ -3,7 +3,7 @@ package rules
 import (
 	"testing"
 
-	"rumgo/config"
+	"rumgo/internal/config"
 )
 
 const (
@@ -37,20 +37,20 @@ func TestNewWatchlistFromCompletelyValidConfigShouldPass(t *testing.T) {
 		t.Fatalf("first item should have %d rules, it has %d", expectedRules, l)
 	}
 
-	if wl.Items[0].Rules[0].GetType() != RuleTypeContains {
-		t.Fatalf("first rule shoud be of type %s", RuleTypeContains)
+	if wl.Items[0].Rules[0].GetType() != ruleTypeContains {
+		t.Fatalf("first rule shoud be of type %s", ruleTypeContains)
 	}
 
-	if wl.Items[0].Rules[1].GetType() != RuleTypeXPathContains {
-		t.Fatalf("second rule shoud be of type %s", RuleTypeXPathContains)
+	if wl.Items[0].Rules[1].GetType() != ruleTypeXPathContains {
+		t.Fatalf("second rule shoud be of type %s", ruleTypeXPathContains)
 	}
 
-	if wl.Items[0].Rules[2].GetType() != GetNotType(RuleTypeContains) {
-		t.Fatalf("third rule shoud be of type %s", GetNotType(RuleTypeContains))
+	if wl.Items[0].Rules[2].GetType() != getNotType(ruleTypeContains) {
+		t.Fatalf("third rule shoud be of type %s", getNotType(ruleTypeContains))
 	}
 }
 
-func TestNewWatchlistFromConfigWithInvalidRuleTypeShouldFail(t *testing.T) {
+func TestNewWatchlistFromConfigWithInvalidstringShouldFail(t *testing.T) {
 	config, err := config.NewConfig([]byte(invalidConfigString))
 	if err != nil {
 		t.Fatal(err)
@@ -61,7 +61,7 @@ func TestNewWatchlistFromConfigWithInvalidRuleTypeShouldFail(t *testing.T) {
 		t.Fatal("creating a watchlist from a config with invalid rule should return an error")
 	}
 
-	if err.Error() != invalidRuleTypeError {
+	if err.Error() != invalidstringError {
 		t.Fatal("invalid error returned")
 	}
 }

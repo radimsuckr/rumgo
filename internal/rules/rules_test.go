@@ -2,26 +2,26 @@ package rules
 
 import "testing"
 
-func TestRuleTypeContainsHasExpectedValue(t *testing.T) {
+func TeststringContainsHasExpectedValue(t *testing.T) {
 	expected := "contains"
 
-	if RuleTypeContains != expected {
-		t.Errorf("RuleTypeContains has value %s instead of %s", RuleTypeContains, expected)
+	if ruleTypeContains != expected {
+		t.Errorf("stringContains has value %s instead of %s", ruleTypeContains, expected)
 	}
 }
 
-func TestRuleTypeNotContainsHasExpectedValue(t *testing.T) {
-	var expected RuleType = "!contains"
+func TeststringNotContainsHasExpectedValue(t *testing.T) {
+	var expected string = "!contains"
 
-	if val := GetNotType(RuleTypeContains); val != expected {
-		t.Errorf("Inverted RuleTypeContains has value %s instead of %s", val, expected)
+	if val := getNotType(ruleTypeContains); val != expected {
+		t.Errorf("Inverted stringContains has value %s instead of %s", val, expected)
 	}
 }
 
-func TestRuleTypeXPathContainsHasExpectedValue(t *testing.T) {
+func TeststringXPathContainsHasExpectedValue(t *testing.T) {
 	expected := "xpath-contains"
 
-	if RuleTypeXPathContains != expected {
-		t.Errorf("RuleTypeXPathContains has value %s instead of %s", RuleTypeXPathContains, expected)
+	if ruleTypeXPathContains != expected {
+		t.Errorf("stringXPathContains has value %s instead of %s", ruleTypeXPathContains, expected)
 	}
 }

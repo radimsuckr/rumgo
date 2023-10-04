@@ -1,3 +1,4 @@
+// Package client is a HTTP client for crawling
 package client
 
 import (
@@ -7,14 +8,16 @@ import (
 	"github.com/EDDYCJY/fake-useragent"
 )
 
+// PageResponse holds a crawler response
 type PageResponse struct {
 	Content string
 }
 
-func NewPageResponse(content string) PageResponse {
+func newPageResponse(content string) PageResponse {
 	return PageResponse{Content: content}
 }
 
+// SendRequest sends a request to a single URL
 func SendRequest(url string) (PageResponse, error) {
 	client := http.Client(*http.DefaultClient)
 	req, err := http.NewRequest("GET", url, nil)
@@ -34,5 +37,5 @@ func SendRequest(url string) (PageResponse, error) {
 		return PageResponse{}, err
 	}
 
-	return NewPageResponse(string(body)), nil
+	return newPageResponse(string(body)), nil
 }

@@ -6,12 +6,12 @@ import (
 )
 
 func TestXPathContainsGetTypeReturnsCorrectType(t *testing.T) {
-	rule := NewXPathContainsRule("abc", "xyz")
+	rule := newXPathContainsRule("abc", "xyz")
 
 	ruletype := rule.GetType()
-	expected := RuleTypeXPathContains
+	expected := ruleTypeXPathContains
 
-	if ruletype != RuleType(expected) {
+	if ruletype != string(expected) {
 		t.Errorf("rule type should be %s but is %s", expected, ruletype)
 	}
 }
@@ -20,10 +20,10 @@ func TestXPathContainsEvaluateContainsText(t *testing.T) {
 	id := "secret"
 	path := "//p[@id=\"" + id + "\"]"
 	text := "hello"
-	test_str := fmt.Sprintf("<p id=\"%s\">%s</p>", id, text)
-	rule := NewXPathContainsRule(path, text)
+	testStr := fmt.Sprintf("<p id=\"%s\">%s</p>", id, text)
+	rule := newXPathContainsRule(path, text)
 
-	got, err := rule.Evaluate(&test_str)
+	got, err := rule.Evaluate(&testStr)
 	want := true
 
 	if err != nil {
@@ -39,10 +39,10 @@ func TestXPathContainsEvaluateDoesNotContainText(t *testing.T) {
 	id := "secret"
 	path := "//p[@id=\"" + id + "\"]"
 	text := "hello"
-	test_str := fmt.Sprintf("<p id=\"%s\">%s</p>", id, "madeupvalue")
-	rule := NewXPathContainsRule(path, text)
+	testStr := fmt.Sprintf("<p id=\"%s\">%s</p>", id, "madeupvalue")
+	rule := newXPathContainsRule(path, text)
 
-	got, err := rule.Evaluate(&test_str)
+	got, err := rule.Evaluate(&testStr)
 	want := false
 
 	if err != nil {
@@ -58,10 +58,10 @@ func TestXPathContainsEvaluateDoesNotContainTextWithWrongXPath(t *testing.T) {
 	id := "secret"
 	path := "//p[@id=\"" + id + "\"]"
 	text := "hello"
-	test_str := fmt.Sprintf("<p id=\"%s\">%s</p>", "madeupvalue", text)
-	rule := NewXPathContainsRule(path, text)
+	testStr := fmt.Sprintf("<p id=\"%s\">%s</p>", "madeupvalue", text)
+	rule := newXPathContainsRule(path, text)
 
-	got, err := rule.Evaluate(&test_str)
+	got, err := rule.Evaluate(&testStr)
 	want := false
 
 	if err != nil {

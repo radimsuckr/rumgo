@@ -1,16 +1,16 @@
 package rules
 
-type Not struct {
-	InnerRule Rule
+type not struct {
+	InnerRule rule
 }
 
-func NewNot(rule Rule) Not {
-	return Not{
-		InnerRule: rule,
+func newNot(innerRule rule) not {
+	return not{
+		InnerRule: innerRule,
 	}
 }
 
-func (rule Not) Evaluate(content *string) (bool, error) {
+func (rule not) Evaluate(content *string) (bool, error) {
 	result, err := rule.InnerRule.Evaluate(content)
 	if err != nil {
 		return false, err
@@ -18,10 +18,10 @@ func (rule Not) Evaluate(content *string) (bool, error) {
 	return !result, nil
 }
 
-func GetNotType(ruleType RuleType) RuleType {
+func getNotType(ruleType string) string {
 	return "!" + ruleType
 }
 
-func (rule Not) GetType() RuleType {
-	return GetNotType(rule.InnerRule.GetType())
+func (rule not) GetType() string {
+	return getNotType(rule.InnerRule.GetType())
 }

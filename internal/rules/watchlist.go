@@ -6,33 +6,36 @@ import (
 	"rumgo/internal/config"
 )
 
+// WatchlistItem is a single item to watch with associated rules
 type WatchlistItem struct {
 	URL   string
-	Rules []Rule
+	Rules []rule
 }
 
+// Watchlist holds all items to watch
 type Watchlist struct {
 	Items []WatchlistItem
 }
 
-const InvalidRuleTypeError = "invalid rule type"
+const invalidstringError = "invalid rule type"
 
-func createRule(rule config.Rule) (Rule, error) {
-	var output Rule
-	switch rule.Type {
-	case RuleTypeContains:
-		output = NewContainsRule(rule.Value)
-	case RuleTypeXPathContains:
-		output = NewXPathContainsRule(rule.Path, rule.Value)
+func createRule(configRule config.Rule) (rule, error) {
+	var output rule
+	switch configRule.Type {
+	case ruleTypeContains:
+		output = newContainsRule(configRule.Value)
+	case ruleTypeXPathContains:
+		output = newXPathContainsRule(configRule.Path, configRule.Value)
 	default:
-		return nil, errors.New(InvalidRuleTypeError)
+		return nil, errors.New(invalidstringError)
 	}
-	if rule.Invert {
-		output = NewNot(output)
+	if configRule.Invert {
+		output = newNot(output)
 	}
 	return output, nil
 }
 
+// NewWatchlistFromConfig parses a watchlist from program's configuration
 func NewWatchlistFromConfig(config config.Config) (Watchlist, error) {
 	wl := Watchlist{}
 

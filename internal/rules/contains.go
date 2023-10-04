@@ -2,21 +2,21 @@ package rules
 
 import "strings"
 
-type ContainsRule struct {
+type containsRule struct {
 	Value string
 }
 
-func NewContainsRule(value string) ContainsRule {
-	return ContainsRule{
+func newContainsRule(value string) containsRule {
+	return containsRule{
 		Value: value,
 	}
 }
 
-func (rule ContainsRule) Evaluate(content *string) (bool, error) {
+func (rule containsRule) Evaluate(content *string) (bool, error) {
 	result := strings.Contains(*content, rule.Value)
 	return result, nil
 }
 
-func (ContainsRule) GetType() RuleType {
-	return RuleTypeContains
+func (containsRule) GetType() string {
+	return ruleTypeContains
 }

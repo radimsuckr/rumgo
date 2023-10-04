@@ -1,3 +1,4 @@
+// main package
 package main
 
 import (
@@ -10,47 +11,47 @@ import (
 )
 
 const (
-	ErrorCreatingWatchlist  = 100
-	ErrorLoadingConfig      = 101
-	ErrorReadingConfigFile  = 102
-	ErrorReadingRumgoConfig = 103
+	errorCreatingWatchlist  = 100
+	errorLoadingConfig      = 101
+	errorReadingConfigFile  = 102
+	errorReadingRumgoConfig = 103
 )
 
-func GetConfigPath() (cfg_path string) {
-	cfg_path = os.Getenv("RUMGO_CONFIG")
-	if len(cfg_path) < 1 {
+func getConfigPath() (cfgPath string) {
+	cfgPath = os.Getenv("RUMGO_CONFIG")
+	if len(cfgPath) < 1 {
 		log.Println("set path to config file in \"RUMGO_CONFIG\" env var")
-		os.Exit(ErrorReadingRumgoConfig)
+		os.Exit(errorReadingRumgoConfig)
 	}
-	return cfg_path
+	return cfgPath
 }
 
-func CreateWatchlist(cfg config.Config) (watchlist rules.Watchlist) {
+func createWatchlist(cfg config.Config) (watchlist rules.Watchlist) {
 	watchlist, err := rules.NewWatchlistFromConfig(cfg)
 	if err != nil {
 		log.Println(err)
-		os.Exit(ErrorCreatingWatchlist)
+		os.Exit(errorCreatingWatchlist)
 	}
 	return watchlist
 }
 
 func main() {
-	cfg_path := GetConfigPath()
-	cfg_content, err := config.ReadConfigFile(cfg_path)
+	cfgPath := getConfigPath()
+	cfgContent, err := config.ReadConfigFile(cfgPath)
 	if err != nil {
 		log.Println(err)
-		os.Exit(ErrorReadingConfigFile)
+		os.Exit(errorReadingConfigFile)
 	}
-	cfg, err := config.NewConfig(cfg_content)
+	cfg, err := config.NewConfig(cfgContent)
 	if err != nil {
 		log.Println(err)
-		os.Exit(ErrorLoadingConfig)
+		os.Exit(errorLoadingConfig)
 	}
-	watchlist := CreateWatchlist(cfg)
+	watchlist := createWatchlist(cfg)
 
 	for {
 		for _, item := range watchlist.Items {
-			go Scrape(cfg.Telegram, item)
+			go scrape(cfg.Telegram, item)
 		}
 
 		time.Sleep(cfg.LoopInterval * time.Second)
