@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"radimsuckr/rumgo/config"
-	"radimsuckr/rumgo/rules"
+	"rumgo/config"
+	"rumgo/rules"
 )
 
 const (

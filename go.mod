@@ -1,4 +1,4 @@
-module radimsuckr/rumgo
+module rumgo
 
 go 1.21
 
