@@ -6,8 +6,10 @@ import (
 	"os"
 	"time"
 
+	"rumgo/internal/client"
 	"rumgo/internal/config"
 	"rumgo/internal/rules"
+	"rumgo/internal/telegram"
 )
 
 const (
@@ -33,6 +35,28 @@ func createWatchlist(cfg config.Config) (watchlist rules.Watchlist) {
 		os.Exit(errorCreatingWatchlist)
 	}
 	return watchlist
+}
+
+func scrape(telegramConfig config.Telegram, item rules.WatchlistItem) {
+	resp, err := client.SendRequest(item.URL)
+	if err != nil {
+		log.Printf("Failed sending request to: %s\n", item.URL)
+	} else {
+		for _, rule := range item.Rules {
+			result, ruleErr := rule.Evaluate(&resp.Content)
+			if ruleErr != nil {
+				log.Printf("Rule error: %s\n", ruleErr)
+				continue
+			}
+
+			if result {
+				text := "Rule " + string(rule.GetType()) + " matched for " + item.URL
+				telegram.SendTelegramMessage(telegramConfig, text)
+			}
+
+			log.Printf("%s (%s): %t\n", item.URL, rule.GetType(), result)
+		}
+	}
 }
 
 func main() {
