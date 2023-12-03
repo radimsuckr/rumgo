@@ -24,3 +24,7 @@ testv:
 
 testcovhtml:
 	go tool cover -html=$(test_coverage_file)
+
+update-deps:
+	go get -u .
+	go mod tidy
