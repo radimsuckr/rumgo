@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"rumgo/internal/config"
+	"github.com/radimsuckr/rumgo/internal/config"
 )
 
 // SendTelegramMessage sends a simple message via Telegram's sendMessage API

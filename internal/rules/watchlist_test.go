@@ -3,7 +3,7 @@ package rules
 import (
 	"testing"
 
-	"rumgo/internal/config"
+	"github.com/radimsuckr/rumgo/internal/config"
 )
 
 const (

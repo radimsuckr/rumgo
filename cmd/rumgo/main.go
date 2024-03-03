@@ -6,10 +6,10 @@ import (
 	"os"
 	"time"
 
-	"rumgo/internal/client"
-	"rumgo/internal/config"
-	"rumgo/internal/rules"
-	"rumgo/internal/telegram"
+	"github.com/radimsuckr/rumgo/internal/client"
+	"github.com/radimsuckr/rumgo/internal/config"
+	"github.com/radimsuckr/rumgo/internal/rules"
+	"github.com/radimsuckr/rumgo/internal/telegram"
 )
 
 const (

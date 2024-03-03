@@ -3,7 +3,7 @@ package rules
 import (
 	"errors"
 
-	"rumgo/internal/config"
+	"github.com/radimsuckr/rumgo/internal/config"
 )
 
 // WatchlistItem is a single item to watch with associated rules

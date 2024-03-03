@@ -1,8 +1,8 @@
-bin_dir = bin/
-test_coverage_file = test_coverage.out
+bin_dir := bin/
+test_coverage_file := test_coverage.out
 
 build:
-	CGO_ENABLED=0 go build -o bin/rumgo
+	cd cmd/rumgo && CGO_ENABLED=0 go build -o bin/rumgo
 
 build-docker: Dockerfile
 	docker build -t radimsuckr/rumgo:latest .
@@ -26,5 +26,5 @@ testcovhtml:
 	go tool cover -html=$(test_coverage_file)
 
 update-deps:
-	go get -u .
+	go get -u ./...
 	go mod tidy
